@@ -1,0 +1,44 @@
+@startuml
+left to right direction
+
+actor Observer
+actor Bidder
+actor Seller
+actor Auctionneer
+
+package Auction{
+    usecase "search for auction lots" as UC1
+    usecase "view auction characteristics" as UC2
+    usecase "bid one lot" as UC3
+    usecase "bid more lots" as UC4
+    usecase "offer a lot" as UC5
+    usecase "offer more lots" as UC6
+    usecase "stop stop bidding" as UC7
+    usecase "allocated a lot" as UC8
+    usecase "considered a lot as unsold" as UC9
+    usecase "filter by category" as UC10
+}
+
+UC3 .> UC4 : extends
+UC5 .> UC6 : extends
+UC7 .> UC5 : include
+UC1 .> UC10 : extends
+
+Bidder <|-- Observer
+Seller <|-- Observer
+
+Observer --> UC1
+Observer --> UC2
+Bidder --> UC3
+Seller --> UC5
+Seller --> UC7
+Auctionneer --> UC8
+Auctionneer --> UC9
+
+@enduml
+
+# Explaination
+
+* Lot filtering by category
+* Categories are hierarchical, onle the highest-level categories are displayed initially
+* Navigation through category tree structure
