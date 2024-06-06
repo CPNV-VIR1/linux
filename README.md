@@ -1,45 +1,98 @@
 # Spring - REST API
 
+## Description
+
 This repository is an example of an api rest spring application.
 
-## First build
+## Getting Started
 
-Note : To find out which version of jdk to install in your project, check the pom.xlm file!
+### Prerequisites
 
-* After cloning this repository, to retrieve the dependencies, compile and run the program for the first time, Run this command:
+List all dependencies and their version needed by the project as :
 
-[INPUT]
-```
-   mvn clean spring-boot:run
-```
+* IDE used PhpStorm 2023.3 or Webstorm 2023.3
+* Containers Engine v23 or later
+* OS supported linux
 
-[OUTPUT]
-```
-  [...]
-    2024-05-30T08:42:27.632+02:00  INFO 1088 --- [payroll] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path ''
-    2024-05-30T08:42:27.640+02:00  INFO 1088 --- [payroll] [           main] ch.cpnves.payroll.PayrollApplication     : Started PayrollApplication in 2.839 seconds (process running for 3.086)
-    2024-05-30T08:42:27.684+02:00  INFO 1088 --- [payroll] [           main] c.c.payroll.Repositories.LoadDatabase    : Preloading Bottle{id=1, name='Bilbo Baggins', role='burglar'}
-    2024-05-30T08:42:27.685+02:00  INFO 1088 --- [payroll] [           main] c.c.payroll.Repositories.LoadDatabase    : Preloading Bottle{id=2, name='Frodo Baggins', role='thief'}
-  [...]
+## Deployment
+
+### On dev environment
+Run docker build
+```bash
+docker compose up --build
 ```
 
-## Test using http requests
-
-Got the file [project]\src\main\java\ch\cpnves\payroll\Controllers\BottleController.java
-
-Before all routes methods, you will find a curl sample.
-
-[INPUT]
+One it was build once you can run it with (-d is for background)
+```bash
+docker compose up -d
 ```
-curl -i localhost:8080/bottles     
-````
-
-[OUTPUT]
+To stop it 
+```bash
+docker compose stop
 ```
-HTTP/1.1 200 
-Content-Type: application/json
-Transfer-Encoding: chunked
-Date: Thu, 30 May 2024 06:45:57 GMT
 
-[{"id":1,"name":"Bilbo Baggins","role":"burglar"},{"id":2,"name":"Frodo Baggins","role":"thief"}]
+Then go on http://localhost:8080/ or use curl 
+```bash
+curl -i localhost:8080/bottles
 ```
+
+### Usage
+Add a bottle 
+```bash
+curl -i -X POST localhost:8080/bottles -H "Content-type:application/json" -d "{\"name\": \"Evian\"}"
+```
+
+Show bottles
+```bash
+curl -i localhost:8080/bottles
+```
+
+
+## Directory structure
+```shell
+├── compose.yaml                                             //Docker compose 
+├── Dockerfile                                               //Dockerfile
+├── docs                                                     //Documentation
+│   └── useCaseDiagram.wsd      
+├── mvnw                                                     //Maven
+├── mvnw.cmd                                                      
+├── nginx.conf                                               //Nginx config
+├── pom.xml                                                  //Pom with dependances
+├── README.Docker.md
+├── README.md                                                //Readme
+├── src
+│   ├── main
+│   │   ├── java
+│   │   │   └── ch
+│   │   │       └── cpnves
+│   │   │           └── payroll
+│   │   │               ├── Controllers                     //Controllers
+│   │   │               │   ├── BottleController.java
+│   │   │               │   ├── BottleNotFoundAdvice.java
+│   │   │               │   └── BottleNotFoundException.java
+│   │   │               ├── Entities                        //Entities
+│   │   │               │   └── Bottle.java
+│   │   │               ├── PayrollApplication.java
+│   │   │               └── Repositories                    //Repositories
+│   │   │                   ├── BottleRepository.java
+│   │   │                   └── LoadDatabase.java
+│   │   └── resources                                         
+│   │       └── application.properties                      //Propreties
+│   └── test                                                //Test classes
+│       └── java
+│           └── ch
+│               └── cpnves
+│                   └── payroll
+│                       └── PayrollApplicationTests.java             
+```
+
+## Collaborate
+
+* Workflow
+  * This project is tiny, we are all working on the main branch.
+  * [How to commit](https://www.conventionalcommits.org/en/v1.0.0/)
+  * Issues are added to the [github issues page](https://github.com/CPNV-VIR1/linux/issues)
+
+## Contact
+
+* If you need to, you can create an issue on GitHub we will try to respond as quickly as possible.
