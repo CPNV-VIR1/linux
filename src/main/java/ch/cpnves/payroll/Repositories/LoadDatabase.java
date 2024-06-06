@@ -15,7 +15,7 @@ public class LoadDatabase {
     CommandLineRunner initDatabase(BottleRepository repository){
         return args->{
             log.info("Preloading " + repository.save(new Bottle("Evian")));
-            log.info("Preloading " + repository.save(new Bottle("")));
+            log.info("Preloading " + repository.save(new Bottle("Henniez")));
         };
     }
 }
