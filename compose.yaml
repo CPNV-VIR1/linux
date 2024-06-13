@@ -8,16 +8,16 @@
 # database or a cache. For examples, see the Awesome Compose repository:
 # https://github.com/docker/awesome-compose
 services:
-  server:
+  ms-delete:
     build:
       context: .
     depends_on:
       db:
         condition: service_healthy
     environment:
-      spring.datasource.url: jdbc:postgresql://db:5432/petclinic
-      spring.datasource.username: petclinic
-      spring.datasource.password: petclinic
+      spring.datasource.url: jdbc:postgresql://db:5432/bottles
+      spring.datasource.username: bottles
+      spring.datasource.password: bouteille1
       spring.jpa.database-platform: org.hibernate.dialect.PostgreSQLDialect
       spring.jpa.hibernate.ddl-auto: update
   db:
