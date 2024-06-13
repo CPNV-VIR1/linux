@@ -31,8 +31,6 @@ services:
        - POSTGRES_DB=petclinic
        - POSTGRES_USER=petclinic
        - POSTGRES_PASSWORD=petclinic
-     expose:
-       - 5432
      healthcheck:
        test: [ "CMD", "pg_isready", "-U", "petclinic"]
        interval: 10s
