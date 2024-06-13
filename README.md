@@ -47,6 +47,18 @@ Show bottles
 ```bash
 curl -i localhost:8080/bottles
 ```
+Show specific bottle
+```bash
+curl -i localhost:8080/bottles/1
+```
+Modify specific bottle
+```bash
+curl -i -X PUT localhost:8080/bottles/2  -H "Content-type:application/json" -d "{\"name\": \"Samwise2\"}"
+```
+Delete specific bottle
+```bash
+curl -i -X DELETE localhost:8080/bottles/2
+```
 
 ### On integration environment
 
@@ -57,10 +69,21 @@ Add a bottle
 ```bash
 curl -i -X POST https://vir1-linux.cld.education/bottles -H "Content-type:application/json" -d "{\"name\": \"Sampe\"}"
 ```
-
 Show bottles
 ```bash
 curl -i https://vir1-linux.cld.education/bottles
+```
+Show specific bottle
+```bash
+curl -i https://vir1-linux.cld.education/bottles/1
+```
+Modify specific bottle
+```bash
+curl -i -X PUT https://vir1-linux.cld.education/bottles/2  -H "Content-type:application/json" -d "{\"name\": \"Samwise2\"}"
+```
+Delete specific bottle
+```bash
+curl -i -X DELETE https://vir1-linux.cld.education/bottles/2
 ```
 
 ## Directory structure
