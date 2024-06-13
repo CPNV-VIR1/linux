@@ -28,11 +28,11 @@ services:
      volumes:
        - db-data:/var/lib/postgresql/data
      environment:
-       - POSTGRES_DB=petclinic
-       - POSTGRES_USER=petclinic
-       - POSTGRES_PASSWORD=petclinic
+       - POSTGRES_DB=bottles
+       - POSTGRES_USER=bottles
+       - POSTGRES_PASSWORD=bouteille1
      healthcheck:
-       test: [ "CMD", "pg_isready", "-U", "petclinic"]
+       test: [ "CMD", "pg_isready", "-U", "bottles"]
        interval: 10s
        timeout: 5s
        retries: 5
