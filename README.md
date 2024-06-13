@@ -2,7 +2,8 @@
 
 ## Description
 
-This repository is an example of an api rest spring application.
+This repository is an example of a spring api rest application whose theme is bottles, using docker microservices.
+The main features are adding, retrieving and deleting bottles.
 
 ## Getting Started
 
@@ -10,9 +11,10 @@ This repository is an example of an api rest spring application.
 
 List all dependencies and their version needed by the project as :
 
-* IDE used PhpStorm 2023.3 or Webstorm 2023.3
-* Containers Engine v23 or later
-* OS supported linux
+* IDE used [IntelliJ IDEA Ultimate 2023 or later](https://www.jetbrains.com/idea/download/?section=windows)
+* [Docker Containers Engine v23 or later](https://www.docker.com/products/docker-desktop/)
+* IDE Plugin for [Docker](https://plugins.jetbrains.com/plugin/7724-docker/versions#tabs)
+* OS supported Linux
 
 ## Deployment
 
@@ -35,8 +37,7 @@ Then go on http://localhost:8080/ or use curl
 ```bash
 curl -i localhost:8080/bottles
 ```
-
-### Usage
+#### Usage
 Add a bottle 
 ```bash
 curl -i -X POST localhost:8080/bottles -H "Content-type:application/json" -d "{\"name\": \"Evian\"}"
@@ -47,51 +48,125 @@ Show bottles
 curl -i localhost:8080/bottles
 ```
 
+### On integration environment
+
+Same as the dev environment in [vir1-linux.cld.education](https://vir1-linux.cld.education/bottles).
+
+#### Usage
+Add a bottle 
+```bash
+curl -i -X POST https://vir1-linux.cld.education/bottles -H "Content-type:application/json" -d "{\"name\": \"Sampe\"}"
+```
+
+Show bottles
+```bash
+curl -i https://vir1-linux.cld.education/bottles
+```
 
 ## Directory structure
 ```shell
-├── compose.yaml                                             //Docker compose 
-├── Dockerfile                                               //Dockerfile
-├── docs                                                     //Documentation
-│   └── useCaseDiagram.wsd      
-├── mvnw                                                     //Maven
-├── mvnw.cmd                                                      
-├── nginx.conf                                               //Nginx config
-├── pom.xml                                                  //Pom with dependances
+├── assets
+│   └── wiki_images                                          //Images used in wiki
+│       └── diagram.png
+├── compose.yaml                                             //Docker compose
+├── docs                                                     //Documentations
+│   └── useCaseDiagram.wsd
+├── ms-api-gateway
+│   ├── Dockerfile                                           //Dockerfile
+│   └── nginx.conf                                           //Nginx config
+├── ms-db
+│   └── Dockerfile                                           //Dockerfile
+├── ms-delete
+│   ├── Dockerfile                                           //Dockerfile
+│   ├── mvnw                                                 //Maven
+│   ├── mvnw.cmd
+│   ├── pom.xml
+│   └── src
+│       ├── main
+│       │   ├── java
+│       │   │   └── ch
+│       │   │       └── cpnves
+│       │   │           └── payroll
+│       │   │               ├── Controllers                  //Controllers
+│       │   │               ├── Entities                     //Entities
+│       │   │               ├── PayrollApplication.java
+│       │   │               └── Repositories                 //Repositories
+│       │   └── resources
+│       │       └── application.properties                   //Properties
+│       └── test                                             //Test classes
+├── ms-get
+│   ├──Dockerfile                                           //Dockerfile
+│   ├── mvnw                                                 //Maven
+│   ├── mvnw.cmd
+│   ├── pom.xml
+│   └── src
+│       ├── main
+│       │   ├── java
+│       │   │   └── ch
+│       │   │       └── cpnves
+│       │   │           └── payroll
+│       │   │               ├── Controllers                  //Controllers
+│       │   │               ├── Entities                     //Entities
+│       │   │               ├── PayrollApplication.java
+│       │   │               └── Repositories                 //Repositories
+│       │   └── resources
+│       │       └── application.properties                   //Properties
+│       └── test                                             //Test classes
+├── ms-post
+│   ├── Dockerfile                                           //Dockerfile
+│   ├── mvnw                                                 //Maven
+│   ├── mvnw.cmd
+│   ├── pom.xml
+│   └── src
+│       ├── main
+│       │   ├── java
+│       │   │   └── ch
+│       │   │       └── cpnves
+│       │   │           └── payroll
+│       │   │               ├── Controllers                  //Controllers
+│       │   │               ├── Entities                     //Entities
+│       │   │               ├── PayrollApplication.java
+│       │   │               └── Repositories                 //Repositories
+│       │   └── resources
+│       │       └── application.properties                   //Properties
+│       └── test                                             //Test classes
+├── ms-put
+│   ├── Dockerfile                                           //Dockerfile
+│   ├── mvnw                                                 //Maven
+│   ├── mvnw.cmd
+│   ├── pom.xml
+│   └── src
+│       ├── main
+│       │   ├── java
+│       │   │   └── ch
+│       │   │       └── cpnves
+│       │   │           └── payroll
+│       │   │               ├── Controllers                  //Controllers
+│       │   │               ├── Entities                     //Entities
+│       │   │               ├── PayrollApplication.java
+│       │   │               └── Repositories                 //Repositories
+│       │   └── resources
+│       │       └── application.properties                   //Properties
+│       └── test                                             //Test classes
 ├── README.Docker.md
-├── README.md                                                //Readme
-├── src
-│   ├── main
-│   │   ├── java
-│   │   │   └── ch
-│   │   │       └── cpnves
-│   │   │           └── payroll
-│   │   │               ├── Controllers                     //Controllers
-│   │   │               │   ├── BottleController.java
-│   │   │               │   ├── BottleNotFoundAdvice.java
-│   │   │               │   └── BottleNotFoundException.java
-│   │   │               ├── Entities                        //Entities
-│   │   │               │   └── Bottle.java
-│   │   │               ├── PayrollApplication.java
-│   │   │               └── Repositories                    //Repositories
-│   │   │                   ├── BottleRepository.java
-│   │   │                   └── LoadDatabase.java
-│   │   └── resources                                         
-│   │       └── application.properties                      //Propreties
-│   └── test                                                //Test classes
-│       └── java
-│           └── ch
-│               └── cpnves
-│                   └── payroll
-│                       └── PayrollApplicationTests.java             
+└── README.md    
 ```
-
 ## Collaborate
 
 * Workflow
   * This project is tiny, we are all working on the main branch.
   * [How to commit](https://www.conventionalcommits.org/en/v1.0.0/)
   * Issues are added to the [github issues page](https://github.com/CPNV-VIR1/linux/issues)
+
+## License
+[![License: CC BY 4.0](https://licensebuttons.net/l/by/4.0/80x15.png)](https://creativecommons.org/licenses/by/4.0/)
+
+You are free to copy and redistribute the material in any medium or format for any purpose, even commercially. You can also adapt it, transform it or remit it.
+You just need to give the appropriate credit.
+```markdown
+Example in markdown
+[linux](https://github.com/CPNV-VIR1/linux)
+```
 
 ## Contact
 
