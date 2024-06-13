@@ -10,57 +10,55 @@
 services:
   ms-delete:
     build:
-      context: .
+      context: ./ms-delete
     depends_on:
-      db:
+      ms-db:
         condition: service_healthy
     environment:
-      spring.datasource.url: jdbc:postgresql://db:5432/bottles
+      spring.datasource.url: jdbc:postgresql://ms-db:5432/bottles
       spring.datasource.username: bottles
       spring.datasource.password: bouteille1
       spring.jpa.database-platform: org.hibernate.dialect.PostgreSQLDialect
       spring.jpa.hibernate.ddl-auto: update
   ms-get:
     build:
-      context: .
+      context: ./ms-get
     depends_on:
-      db:
+      ms-db:
         condition: service_healthy
     environment:
-      spring.datasource.url: jdbc:postgresql://db:5432/bottles
+      spring.datasource.url: jdbc:postgresql://ms-db:5432/bottles
       spring.datasource.username: bottles
       spring.datasource.password: bouteille1
       spring.jpa.database-platform: org.hibernate.dialect.PostgreSQLDialect
       spring.jpa.hibernate.ddl-auto: update
   ms-post:
     build:
-      context: .
+      context: ./ms-post
     depends_on:
-      db:
+      ms-db:
         condition: service_healthy
     environment:
-      spring.datasource.url: jdbc:postgresql://db:5432/bottles
+      spring.datasource.url: jdbc:postgresql://ms-db:5432/bottles
       spring.datasource.username: bottles
       spring.datasource.password: bouteille1
       spring.jpa.database-platform: org.hibernate.dialect.PostgreSQLDialect
       spring.jpa.hibernate.ddl-auto: update
   ms-put:
     build:
-      context: .
+      context: ./ms-put
     depends_on:
-      db:
+      ms-db:
         condition: service_healthy
     environment:
-      spring.datasource.url: jdbc:postgresql://db:5432/bottles
+      spring.datasource.url: jdbc:postgresql://ms-db:5432/bottles
       spring.datasource.username: bottles
       spring.datasource.password: bouteille1
       spring.jpa.database-platform: org.hibernate.dialect.PostgreSQLDialect
       spring.jpa.hibernate.ddl-auto: update
   ms-db:
-     image: postgres
-     restart: always
-#     secrets:
-#       - db-password
+     build:
+        context: ./ms-db
      volumes:
        - db-data:/var/lib/postgresql/data
      environment:
@@ -73,13 +71,15 @@ services:
        timeout: 5s
        retries: 5
   ms-api-gateway:
-    image: nginx
+    build:
+      context: ./ms-api-gateway
     ports:
       - 8080:80
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf
     depends_on:
-      - server
+      - ms-delete
+      - ms-get
+      - ms-post
+      - ms-put
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
       interval: 30s
