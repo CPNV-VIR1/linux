@@ -63,7 +63,7 @@ services:
   ms-db:
      build:
         context: ./ms-db
-      restart: unless-stopped
+     restart: unless-stopped
      volumes:
        - db-data:/var/lib/postgresql/data
      environment:
