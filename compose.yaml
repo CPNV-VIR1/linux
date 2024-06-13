@@ -20,6 +20,42 @@ services:
       spring.datasource.password: bouteille1
       spring.jpa.database-platform: org.hibernate.dialect.PostgreSQLDialect
       spring.jpa.hibernate.ddl-auto: update
+  ms-get:
+    build:
+      context: .
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      spring.datasource.url: jdbc:postgresql://db:5432/bottles
+      spring.datasource.username: bottles
+      spring.datasource.password: bouteille1
+      spring.jpa.database-platform: org.hibernate.dialect.PostgreSQLDialect
+      spring.jpa.hibernate.ddl-auto: update
+  ms-post:
+    build:
+      context: .
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      spring.datasource.url: jdbc:postgresql://db:5432/bottles
+      spring.datasource.username: bottles
+      spring.datasource.password: bouteille1
+      spring.jpa.database-platform: org.hibernate.dialect.PostgreSQLDialect
+      spring.jpa.hibernate.ddl-auto: update
+  ms-put:
+    build:
+      context: .
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      spring.datasource.url: jdbc:postgresql://db:5432/bottles
+      spring.datasource.username: bottles
+      spring.datasource.password: bouteille1
+      spring.jpa.database-platform: org.hibernate.dialect.PostgreSQLDialect
+      spring.jpa.hibernate.ddl-auto: update
   db:
      image: postgres
      restart: always
